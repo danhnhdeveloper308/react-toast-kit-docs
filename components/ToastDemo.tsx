@@ -142,11 +142,18 @@ export default function ToastDemo() {
     });
     
     toast.promise(promise, {
-      loading: 'Fetching user data...',
-      success: (data: any) => `Successfully loaded ${data.name}`,
-      error: (err) => `Error: ${err.message}`,
-    }, {
-      position,
+      loading: {
+        description: 'Fetching user data...',
+        position,
+      },
+      success: (data: any) => ({
+        description: `Successfully loaded ${data.name}`,
+        position,
+      }),
+      error: (err) => ({
+        description: `Error: ${err.message}`,
+        position,
+      }),
     });
   };
   
