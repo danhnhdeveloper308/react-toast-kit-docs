@@ -4,6 +4,12 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { toast } from 'react-toast-kit';
 
+// Define interface for operation result
+interface OperationResult {
+  status: string;
+  message: string;
+}
+
 export default function PatternsPage() {
   const [formData, setFormData] = useState({
     name: '',
@@ -48,7 +54,7 @@ export default function PatternsPage() {
   const handleAsyncAction = async () => {
     // Create a promise that resolves after a delay
     const asyncOperation = () => {
-      return new Promise((resolve, reject) => {
+      return new Promise<OperationResult>((resolve, reject) => {
         setTimeout(() => {
           const success = Math.random() > 0.3;
           if (success) {
@@ -67,11 +73,11 @@ export default function PatternsPage() {
           title: 'Processing',
           description: 'Your request is being processed...'
         },
-        success: (data) => ({
+        success: (data: OperationResult) => ({
           title: 'Success',
           description: data.message
         }),
-        error: (err) => ({
+        error: (err: Error) => ({
           title: 'Error',
           description: err.message
         })
@@ -155,19 +161,22 @@ export default function PatternsPage() {
         variant: 'success' as const,
         title: 'Success',
         description: 'Operation completed successfully',
-        icon: '✓'
+        // Converting string icon to JSX element
+        icon: <span role="img" aria-label="success">✓</span>
       },
       warning: {
         variant: 'warning' as const,
         title: 'Warning',
         description: 'Proceed with caution',
-        icon: '⚠️'
+        // Converting string icon to JSX element
+        icon: <span role="img" aria-label="warning">⚠️</span>
       },
       error: {
         variant: 'error' as const,
         title: 'Error',
         description: 'Something went wrong',
-        icon: '✗'
+        // Converting string icon to JSX element
+        icon: <span role="img" aria-label="error">✗</span>
       }
     };
     
