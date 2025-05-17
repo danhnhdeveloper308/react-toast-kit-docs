@@ -1,4 +1,4 @@
-name: Deploy Next.js site to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
@@ -29,13 +29,16 @@ jobs:
           version: '9'
           
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
         
       - name: Build with Next.js
         run: pnpm build
+        env:
+          NODE_ENV: production
         
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: out          # The folder the action should deploy
           branch: gh-pages     # The branch the action should deploy to
+          clean: true          # Automatically remove deleted files from the deployment branch
