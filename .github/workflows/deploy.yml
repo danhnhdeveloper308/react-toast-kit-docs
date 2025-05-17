@@ -35,6 +35,14 @@ jobs:
         run: pnpm build
         env:
           NODE_ENV: production
+
+      - name: Prepare for deployment
+        run: |
+          # Ensure .nojekyll file exists to bypass Jekyll processing
+          touch out/.nojekyll
+          # Create a simple README to explain what this branch is
+          echo "# GitHub Pages deployment branch" > out/README.md
+          echo "This branch is automatically generated and contains the built version of the react-toast-kit documentation site." >> out/README.md
         
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
