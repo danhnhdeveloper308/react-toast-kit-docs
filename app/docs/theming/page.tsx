@@ -140,23 +140,22 @@ module.exports = {
 }`;
 
   return (
-    <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-      <div className="max-w-5xl mx-auto">
-        <div className="mb-8">
-          <Link href="/docs" className="text-blue-600 dark:text-blue-400 hover:underline flex items-center">
-            <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-            Back to Documentation
-          </Link>
-        </div>
-        
-        <div className="mb-10">
-          <h1 className="text-3xl font-bold mb-2">Toast Theming</h1>
-          <p className="text-gray-600 dark:text-gray-300">
-            Learn how to customize toast notifications with different themes and styles
-          </p>
-        </div>
+    <div className="max-w-3xl">
+      {/* Breadcrumb */}
+      <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-6">
+        <Link href="/" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Home</Link>
+        <span>/</span>
+        <Link href="/docs" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Docs</Link>
+        <span>/</span>
+        <span>Theming</span>
+      </div>
+
+      <div className="mb-10">
+        <h1 className="text-4xl font-bold mb-2 text-gray-900 dark:text-white">Theming</h1>
+        <p className="text-lg text-gray-600 dark:text-gray-300">
+          Customize toast notifications with different themes, styles, and animations.
+        </p>
+      </div>
         
         {/* Theme Selector */}
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg mb-8 p-6">
@@ -393,32 +392,21 @@ module.exports = {
           </div>
         </div>
         
-        {/* Next steps */}
-        <div className="text-center mt-12 mb-8">
-          <h2 className="text-xl font-bold mb-4">Next Steps</h2>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/docs/patterns"
-              className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
-            >
-              <span>Common Usage Patterns</span>
-              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </Link>
-            
-            <Link
-              href="/docs/accessibility"
-              className="inline-flex items-center justify-center px-6 py-3 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
-            >
-              <span>Accessibility Features</span>
-              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </Link>
-          </div>
+        {/* Navigation */}
+        <div className="flex justify-between pt-6 border-t border-gray-200 dark:border-gray-800 mt-8">
+          <Link href="/docs/features" className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+            Features
+          </Link>
+          <Link href="/docs/nextjs" className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+            Next.js Integration
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </Link>
         </div>
       </div>
-    </div>
   );
 }

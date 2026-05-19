@@ -1,307 +1,259 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { toast, ToastPosition } from 'react-toast-kit';
+import { useState } from 'react';
+import { toast } from 'react-toast-kit';
+import CodeBlock from '../../../components/CodeBlock';
 
-export default function NextJSPage() {
-  const [markdownContent, setMarkdownContent] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
-  const [position, setPosition] = useState<ToastPosition>('top-right');
-  
-  // Load markdown content from file
-  useEffect(() => {
-    async function loadMarkdown() {
-      try {
-        const response = await fetch('/docs/NEXTJS.md');
-        const text = await response.text();
-        setMarkdownContent(text);
-        setIsLoading(false);
-      } catch (error) {
-        console.error('Failed to load markdown:', error);
-        setIsLoading(false);
-        toast.error({
-          title: 'Error',
-          description: 'Failed to load documentation content',
-          position
-        });
-      }
-    }
-    
-    loadMarkdown();
-  }, [position]);
-  
-  // Demo function to show toast in Next.js context
-  const showNextJSToast = () => {
-    toast.success({
-      title: 'Next.js Integration',
-      description: 'This toast works perfectly in Next.js!',
-      position
-    });
-  };
-  
-  // Convert markdown to HTML (very simple version)
-  const renderMarkdown = (md: string) => {
-    // This is a very basic markdown renderer
-    // In a real app, use a proper markdown library
-    
-    const html = md
-      // Headers
-      .replace(/^# (.*$)/gm, '<h1 class="text-3xl font-bold mb-4 mt-8">$1</h1>')
-      .replace(/^## (.*$)/gm, '<h2 class="text-2xl font-bold mb-3 mt-6">$1</h2>')
-      .replace(/^### (.*$)/gm, '<h3 class="text-xl font-bold mb-2 mt-5">$1</h3>')
-      // Code blocks
-      .replace(/```([\s\S]*?)```/g, '<pre class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto mb-4"><code>$1</code></pre>')
-      // Inline code
-      .replace(/`([^`]+)`/g, '<code class="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-sm">$1</code>')
-      // Bold
-      .replace(/\*\*(.*)\*\*/g, '<strong>$1</strong>')
-      // Italic
-      .replace(/\*(.*)\*/g, '<em>$1</em>')
-      // Links
-      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-blue-600 hover:underline">$1</a>')
-      // Lists
-      .replace(/^\s*-\s*(.*)/gm, '<li class="ml-4">$1</li>')
-      // Paragraphs
-      .replace(/^(?!<[hla]|\s*$)(.*)/gm, '<p class="mb-4 text-gray-700 dark:text-gray-300">$1</p>');
-    
-    return { __html: html };
-  };
+const appRouterLayoutCode = `// app/layout.tsx
+'use client'; // Required when using hooks inside the layout
 
-  // Demo showing different Next.js-specific features
-  const showAppRouterToast = () => {
-    toast.info({
-      title: 'App Router Support',
-      description: 'Using ClientToastProvider in root layout',
-      position
-    });
-  };
-  
-  const showPagesRouterToast = () => {
-    toast.info({
-      title: 'Pages Router Support',
-      description: 'Using ToastProvider in _app.js',
-      position
-    });
-  };
-  
-  const showRSCToast = () => {
-    toast({
-      title: 'Server Components',
-      description: 'Import toast functions only in Client Components',
-      variant: 'warning',
-      position
-    });
-  };
-
-  const positions: ToastPosition[] = [
-    'top-right',
-    'top-center',
-    'top-left',
-    'bottom-right',
-    'bottom-center',
-    'bottom-left'
-  ];
-
-  return (
-    <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-      <div className="max-w-5xl mx-auto">
-        <div className="mb-8">
-          <Link href="/docs" className="text-blue-600 dark:text-blue-400 hover:underline flex items-center">
-            <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-            Back to Documentation
-          </Link>
-        </div>
-        
-        <div className="mb-10 text-center">
-          <h1 className="text-3xl font-bold mb-2">Next.js Integration</h1>
-          <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Learn how to use React Toast Kit with Next.js applications, supporting both the App Router and Pages Router.
-          </p>
-        </div>
-        
-        {/* Demo section */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg mb-8 p-6">
-          <h2 className="text-xl font-bold mb-4">Next.js Demos</h2>
-          <p className="mb-6 text-gray-600 dark:text-gray-300">
-            Try these examples to see React Toast Kit working with Next.js specific features.
-          </p>
-          
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Toast Position:
-            </label>
-            <div className="grid grid-cols-3 gap-2">
-              {positions.map((pos) => (
-                <button
-                  key={pos}
-                  onClick={() => setPosition(pos)}
-                  className={`px-3 py-2 rounded text-sm transition ${
-                    position === pos
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200'
-                  }`}
-                >
-                  {pos}
-                </button>
-              ))}
-            </div>
-          </div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-            <button
-              onClick={showNextJSToast}
-              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded transition"
-            >
-              General Next.js Toast
-            </button>
-            <button
-              onClick={showAppRouterToast}
-              className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded transition"
-            >
-              App Router
-            </button>
-            <button
-              onClick={showPagesRouterToast}
-              className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded transition"
-            >
-              Pages Router
-            </button>
-            <button
-              onClick={showRSCToast}
-              className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded transition"
-            >
-              Server Components
-            </button>
-          </div>
-        </div>
-        
-        {/* Documentation content */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-8">
-          {isLoading ? (
-            <div className="flex justify-center items-center py-12">
-              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-            </div>
-          ) : (
-            <div
-              className="prose prose-blue max-w-none dark:prose-invert"
-              dangerouslySetInnerHTML={renderMarkdown(markdownContent)}
-            />
-          )}
-        </div>
-        
-        {/* Code examples */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-8">
-          <h2 className="text-xl font-bold mb-4">Implementation Examples</h2>
-          
-          <div className="space-y-6">
-            <div>
-              <h3 className="text-lg font-medium mb-2">App Router Setup (layout.js or layout.tsx)</h3>
-              <pre className="text-sm overflow-x-auto p-3 rounded bg-gray-100 dark:bg-gray-900">
-{`'use client';
-
-import { ClientToastProvider } from 'react-toast-kit';
+import { ToastProvider } from 'react-toast-kit';
 import './globals.css';
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <ClientToastProvider
-          defaultPosition="top-right"
-          defaultTheme="system"
-        >
+        <ToastProvider theme="system" position="top-right">
           {children}
-        </ClientToastProvider>
+        </ToastProvider>
       </body>
     </html>
   );
-}`}
-              </pre>
-            </div>
-            
-            <div>
-              <h3 className="text-lg font-medium mb-2">Using in a Client Component</h3>
-              <pre className="text-sm overflow-x-auto p-3 rounded bg-gray-100 dark:bg-gray-900">
-{`'use client';
+}`;
 
-import { toast } from 'react-toast-kit';
+const serverSafeLayoutCode = `// app/layout.tsx  (Server Component — recommended pattern)
+import type { Metadata } from 'next';
+import './globals.css';
+import ToastWrapper from './ToastWrapper'; // client component
 
-export default function LoginForm() {
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    
-    try {
-      // Login logic here
-      await loginUser();
-      toast.success('Login successful!');
-    } catch (error) {
-      toast.error({
-        title: 'Login Failed',
-        description: error.message,
-      });
-    }
-  };
-  
+export const metadata: Metadata = { title: 'My App' };
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <form onSubmit={handleSubmit}>
-      {/* Form fields */}
-      <button type="submit">Login</button>
-    </form>
-  );
-}`}
-              </pre>
-            </div>
-            
-            <div>
-              <h3 className="text-lg font-medium mb-2">Pages Router Setup (_app.js or _app.tsx)</h3>
-              <pre className="text-sm overflow-x-auto p-3 rounded bg-gray-100 dark:bg-gray-900">
-{`import { ToastProvider } from 'react-toast-kit';
-import '../styles/globals.css';
-
-function MyApp({ Component, pageProps }) {
-  return (
-    <ToastProvider>
-      <Component {...pageProps} />
-    </ToastProvider>
+    <html lang="en">
+      <body>
+        <ToastWrapper>{children}</ToastWrapper>
+      </body>
+    </html>
   );
 }
 
-export default MyApp;`}
-              </pre>
-            </div>
-          </div>
-        </div>
-        
-        {/* Additional resources */}
-        <div className="text-center mt-12 mb-8">
-          <h2 className="text-xl font-bold mb-4">Additional Resources</h2>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a 
-              href="https://nextjs.org/docs/app"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center px-6 py-3 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
-            >
-              <span>Next.js App Router Docs</span>
-              <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
-            </a>
-            <Link
-              href="/docs/patterns"
-              className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
-            >
-              <span>Usage Patterns</span>
-              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </Link>
-          </div>
+// app/ToastWrapper.tsx
+'use client';
+import { ToastProvider } from 'react-toast-kit';
+
+export default function ToastWrapper({ children }: { children: React.ReactNode }) {
+  return <ToastProvider theme="system">{children}</ToastProvider>;
+}`;
+
+const pagesRouterCode = `// pages/_app.tsx  (Pages Router)
+import type { AppProps } from 'next/app';
+import { ToastProvider } from 'react-toast-kit';
+import '../styles/globals.css';
+
+export default function MyApp({ Component, pageProps }: AppProps) {
+  return (
+    <ToastProvider theme="system" position="top-right">
+      <Component {...pageProps} />
+    </ToastProvider>
+  );
+}`;
+
+const clientComponentCode = `'use client'; // Required — toast() cannot be called in Server Components
+
+import { toast } from 'react-toast-kit';
+
+export default function LoginButton() {
+  const handleLogin = async () => {
+    try {
+      await signIn(credentials);
+      toast.success({ title: 'Welcome back!', description: 'You are now signed in.' });
+    } catch (err) {
+      toast.error({ title: 'Login failed', description: err.message });
+    }
+  };
+
+  return <button onClick={handleLogin}>Sign in</button>;
+}`;
+
+const serverActionCode = `// app/actions.ts  (Server Action)
+'use server';
+
+export async function saveData(formData: FormData) {
+  await db.save(formData);
+  // ✗ Cannot call toast() here — Server Action runs on the server
+  return { success: true };
+}
+
+// app/SaveForm.tsx  (Client Component)
+'use client';
+import { toast } from 'react-toast-kit';
+import { saveData } from './actions';
+
+export default function SaveForm() {
+  const handleSubmit = async (formData: FormData) => {
+    const result = await saveData(formData);
+    if (result.success) {
+      toast.success('Saved!'); // ✓ Called in client component
+    }
+  };
+
+  return <form action={handleSubmit}>...</form>;
+}`;
+
+const offsetCode = `// Account for a fixed 64px header
+<ToastProvider topOffset={80}>
+  {children}
+</ToastProvider>`;
+
+export default function NextJSPage() {
+  const [position, setPosition] = useState<'top-right' | 'top-center' | 'bottom-right'>('top-right');
+
+  return (
+    <div className="max-w-3xl">
+      {/* Breadcrumb */}
+      <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-6">
+        <Link href="/" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Home</Link>
+        <span>/</span>
+        <Link href="/docs" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Docs</Link>
+        <span>/</span>
+        <span>Next.js</span>
+      </div>
+
+      <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-3">Next.js Integration</h1>
+      <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-10">
+        React Toast Kit works with both the Next.js App Router and Pages Router.
+        Below are setup guides, patterns, and things to avoid.
+      </p>
+
+      {/* Live demo */}
+      <div className="p-5 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 mb-10">
+        <h2 className="font-semibold text-gray-900 dark:text-white mb-3">Live Demo</h2>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">This page runs inside a Next.js App Router app — try it:</p>
+        <div className="flex flex-wrap gap-2">
+          <button onClick={() => toast.success({ title: 'Next.js works!', description: 'App Router integration confirmed.', position })} className="px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg transition">App Router toast</button>
+          <button onClick={() => toast.info({ title: 'Client component', description: "toast() must be called in 'use client' components.", position })} className="px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm rounded-lg transition">Client Component</button>
+          <button onClick={() => toast.warning({ title: 'Server Components', description: 'Cannot import toast() in RSC — use client components.', position })} className="px-3 py-2 bg-amber-600 hover:bg-amber-700 text-white text-sm rounded-lg transition">RSC note</button>
         </div>
       </div>
+
+      {/* App Router */}
+      <section className="mb-10">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">App Router Setup</h2>
+
+        <p className="text-gray-600 dark:text-gray-300 mb-4">
+          The simplest approach: add <code className="code-inline">&apos;use client&apos;</code> to your root layout and wrap the body with <code className="code-inline">ToastProvider</code>.
+        </p>
+        <CodeBlock code={appRouterLayoutCode} language="tsx" filename="app/layout.tsx" />
+
+        <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+          <p className="text-sm text-blue-800 dark:text-blue-300">
+            <strong>Recommended:</strong> To preserve Server Component benefits on the root layout, extract <code className="code-inline">ToastProvider</code> into a separate client wrapper component.
+          </p>
+        </div>
+
+        <div className="mt-4">
+          <CodeBlock code={serverSafeLayoutCode} language="tsx" filename="app/layout.tsx" />
+        </div>
+      </section>
+
+      {/* Pages Router */}
+      <section className="mb-10">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Pages Router Setup</h2>
+        <p className="text-gray-600 dark:text-gray-300 mb-4">
+          Add <code className="code-inline">ToastProvider</code> to your <code className="code-inline">_app.tsx</code> file:
+        </p>
+        <CodeBlock code={pagesRouterCode} language="tsx" filename="pages/_app.tsx" />
+      </section>
+
+      {/* Client components */}
+      <section className="mb-10">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Using in Client Components</h2>
+        <p className="text-gray-600 dark:text-gray-300 mb-4">
+          <code className="code-inline">toast()</code> calls the Zustand store — it only runs in the browser.
+          Always import and call it inside <code className="code-inline">&apos;use client&apos;</code> components.
+        </p>
+        <CodeBlock code={clientComponentCode} language="tsx" filename="LoginButton.tsx" />
+      </section>
+
+      {/* Server Actions */}
+      <section className="mb-10">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Server Actions Pattern</h2>
+        <p className="text-gray-600 dark:text-gray-300 mb-4">
+          Server Actions run on the server — you cannot call <code className="code-inline">toast()</code> inside them.
+          Instead, return the result to the client and toast from there.
+        </p>
+        <CodeBlock code={serverActionCode} language="tsx" />
+      </section>
+
+      {/* Header offset */}
+      <section className="mb-10">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Fixed Header Offset</h2>
+        <p className="text-gray-600 dark:text-gray-300 mb-4">
+          If your app has a fixed header, use <code className="code-inline">topOffset</code> to push toasts below it:
+        </p>
+        <CodeBlock code={offsetCode} language="tsx" />
+      </section>
+
+      {/* Checklist */}
+      <section className="mb-10">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Integration Checklist</h2>
+        <div className="space-y-2">
+          {[
+            ['ToastProvider is mounted once at the app root', true],
+            ['toast() is only called inside client components', true],
+            ['CSS is auto-injected — no import needed', true],
+            ['ToastProvider receives topOffset if you have a fixed navbar', null],
+            ['Accessibility announcements enabled for important alerts', null],
+          ].map(([item, done]) => (
+            <div key={item as string} className="flex items-start gap-3 p-3 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800">
+              <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${done ? 'bg-green-100 dark:bg-green-900/30' : 'bg-gray-100 dark:bg-gray-800'}`}>
+                {done ? (
+                  <svg className="w-3 h-3 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                ) : (
+                  <div className="w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-600" />
+                )}
+              </div>
+              <span className="text-sm text-gray-700 dark:text-gray-300">{item as string}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Navigation */}
+      <div className="flex justify-between pt-6 border-t border-gray-200 dark:border-gray-800">
+        <Link href="/docs/theming" className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+          Theming
+        </Link>
+        <Link href="/docs/accessibility" className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+          Accessibility
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </Link>
+      </div>
+
+      <style jsx>{`
+        .code-inline {
+          background: rgb(239 246 255 / 1);
+          color: rgb(37 99 235 / 1);
+          padding: 0.1rem 0.375rem;
+          border-radius: 0.25rem;
+          font-size: 0.875rem;
+          font-family: ui-monospace, monospace;
+        }
+        :global(.dark) .code-inline {
+          background: rgb(30 58 138 / 0.2);
+          color: rgb(147 197 253 / 1);
+        }
+      `}</style>
     </div>
   );
 }
