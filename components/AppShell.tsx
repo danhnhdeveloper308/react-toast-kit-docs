@@ -68,7 +68,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                   <span className="text-[15px] font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 text-transparent bg-clip-text tracking-tight">
                     React Toast Kit
                   </span>
-                  <span className="text-[10px] font-medium text-slate-400 dark:text-slate-500 tracking-wider">v1.0.6</span>
+                  <span className="text-[10px] font-medium text-slate-400 dark:text-slate-500 tracking-wider">v1.0.8</span>
                 </div>
               </Link>
 
