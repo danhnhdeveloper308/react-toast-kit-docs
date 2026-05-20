@@ -24,8 +24,8 @@ importers:
         specifier: ^15.6.1
         version: 15.6.1(react@18.3.1)
       react-toast-kit:
-        specifier: file:../react-toast-kit-main
-        version: file:../react-toast-kit-main(@types/react@18.3.21)(framer-motion@12.12.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^1.0.8
+        version: 1.0.8(framer-motion@12.12.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       zustand:
         specifier: ^5.0.4
         version: 5.0.4(@types/react@18.3.21)(react@18.3.1)
@@ -1508,10 +1508,11 @@ packages:
     peerDependencies:
       react: '>= 0.14.0'
 
-  react-toast-kit@file:../react-toast-kit-main:
-    resolution: {directory: ../react-toast-kit-main, type: directory}
+  react-toast-kit@1.0.8:
+    resolution: {integrity: sha512-2oAUYLksa7Xi566byXAH6+BV+MUB+no5oa73Ua4mujLgWA5RfPvcqQY12X5x7fy4QIZv5VezPM50GDL4KXyfeQ==}
+    engines: {node: '>=16.0.0'}
     peerDependencies:
-      framer-motion: ^10.16.0 || ^11.0.0
+      framer-motion: ^10.16.0 || ^11.0.0 || ^12.0.0
       react: ^17.0.0 || ^18.0.0
       react-dom: ^17.0.0 || ^18.0.0
 
@@ -3478,16 +3479,11 @@ snapshots:
       react: 18.3.1
       refractor: 3.6.0
 
-  react-toast-kit@file:../react-toast-kit-main(@types/react@18.3.21)(framer-motion@12.12.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  react-toast-kit@1.0.8(framer-motion@12.12.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       framer-motion: 12.12.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
-      zustand: 5.0.4(@types/react@18.3.21)(react@18.3.1)
-    transitivePeerDependencies:
-      - '@types/react'
-      - immer
-      - use-sync-external-store
 
   react@18.3.1:
     dependencies:
