@@ -135,13 +135,13 @@ export default function Home() {
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 3l14 9-14 9V3z" />
             </svg>
-            Version 1.0.6 — now available
+            Version 1.0.8 — now available
           </div>
 
           <h1 className="text-5xl sm:text-6xl font-extrabold text-gray-900 dark:text-white tracking-tight leading-tight">
-            Toast notifications
-            <br />
-            <span className="bg-gradient-to-r from-blue-600 to-indigo-600 text-transparent bg-clip-text">done right</span>
+            
+            {/* <br /> */}
+            <span className="bg-gradient-to-r from-blue-600 to-indigo-600 text-transparent bg-clip-text">Toast notifications</span>
           </h1>
 
           <p className="mt-6 text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">

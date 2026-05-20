@@ -89,7 +89,7 @@ function SidebarContent({ pathname, onClose }: { pathname: string; onClose?: () 
       {/* Version badge */}
       <div className="pt-4 border-t border-slate-200 dark:border-slate-800 px-2">
         <div className="flex items-center gap-2">
-          <span className="badge badge-green">v1.0.6</span>
+          <span className="badge badge-green">v1.0.8</span>
           <span className="text-xs text-slate-400 dark:text-slate-500">Latest stable</span>
         </div>
         <div className="mt-3 flex flex-col gap-1.5">
