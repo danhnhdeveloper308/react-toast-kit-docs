@@ -3,7 +3,7 @@
 3:I[31713,["/react-toast-kit-docs/_next/static/chunks/0m~a.2hahuy1k.js","/react-toast-kit-docs/_next/static/chunks/14y0hg7~1.9bp.js","/react-toast-kit-docs/_next/static/chunks/0grdfv.uhfumq.js","/react-toast-kit-docs/_next/static/chunks/0_v3pdwibq61o.js","/react-toast-kit-docs/_next/static/chunks/03l4th9htw0r7.js"],"default"]
 6:I[66138,["/react-toast-kit-docs/_next/static/chunks/0m~a.2hahuy1k.js","/react-toast-kit-docs/_next/static/chunks/14y0hg7~1.9bp.js","/react-toast-kit-docs/_next/static/chunks/0grdfv.uhfumq.js"],"OutletBoundary"]
 7:"$Sreact.suspense"
-0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"Component":"$3","serverProvidedParams":{"searchParams":{},"params":{},"promises":["$@4","$@5"]}}],[["$","script","script-0",{"src":"/react-toast-kit-docs/_next/static/chunks/0_v3pdwibq61o.js","async":true}],["$","script","script-1",{"src":"/react-toast-kit-docs/_next/static/chunks/03l4th9htw0r7.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"tURbZFi0ZtjMwI3gg0gvE"}
+0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"Component":"$3","serverProvidedParams":{"searchParams":{},"params":{},"promises":["$@4","$@5"]}}],[["$","script","script-0",{"src":"/react-toast-kit-docs/_next/static/chunks/0_v3pdwibq61o.js","async":true}],["$","script","script-1",{"src":"/react-toast-kit-docs/_next/static/chunks/03l4th9htw0r7.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"5RvXAswfeWFLEMipcFHzR"}
 4:{}
 5:"$0:rsc:props:children:0:props:serverProvidedParams:params"
 8:null
