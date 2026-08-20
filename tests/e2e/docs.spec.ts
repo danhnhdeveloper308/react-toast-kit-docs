@@ -29,14 +29,18 @@ test.describe('documentation experience', () => {
     });
   }
 
-  test('supports dark mode and stable visual rendering', async ({ page }) => {
+  test('applies distinct light and dark theme tokens', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto('/');
     await expect(page.locator('[data-theme-ready="true"]')).toBeVisible();
-    await expect(page).toHaveScreenshot('home-light.png');
+    await expect(page.locator('html')).not.toHaveClass(/dark/);
+    await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(248, 250, 252)');
+    await expect(page.locator('body')).toHaveCSS('color', 'rgb(15, 23, 42)');
+
     await page.getByRole('button', { name: 'Toggle theme' }).click();
     await expect(page.locator('html')).toHaveClass(/dark/);
-    await expect(page).toHaveScreenshot('home-dark.png');
+    await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(3, 7, 18)');
+    await expect(page.locator('body')).toHaveCSS('color', 'rgb(241, 245, 249)');
   });
 
   test('keeps documentation navigation usable on narrow screens', async ({ page }) => {

@@ -6,7 +6,6 @@ export default defineConfig({
   workers: process.env.CI ? 2 : 1,
   retries: process.env.CI ? 2 : 0,
   reporter: process.env.CI ? [['html', { open: 'never' }], ['github']] : 'list',
-  expect: { toHaveScreenshot: { maxDiffPixelRatio: 0.025, animations: 'disabled' } },
   use: {
     baseURL: 'http://127.0.0.1:3000',
     trace: 'retain-on-failure',
@@ -18,7 +17,8 @@ export default defineConfig({
   webServer: {
     command: 'pnpm dev',
     url: 'http://127.0.0.1:3000',
-    reuseExistingServer: !process.env.CI,
+    // Visual baselines must never be captured from an unrelated stale dev server.
+    reuseExistingServer: false,
     timeout: 120_000,
   },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
