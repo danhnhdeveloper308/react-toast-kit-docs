@@ -21,8 +21,8 @@ importers:
         specifier: ^15.6.1
         version: 15.6.1(react@19.2.8)
       react-toast-kit:
-        specifier: file:../react-toast-kit
-        version: file:../react-toast-kit(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+        specifier: ^1.0.9
+        version: 1.0.9(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
     devDependencies:
       '@axe-core/playwright':
         specifier: ^4.10.2
@@ -771,8 +771,8 @@ packages:
     peerDependencies:
       react: '>= 0.14.0'
 
-  react-toast-kit@file:../react-toast-kit:
-    resolution: {directory: ../react-toast-kit, type: directory}
+  react-toast-kit@1.0.9:
+    resolution: {integrity: sha512-OX9p/LC6VCtkhniInrFDFjwIgd+uyxnIX13K6OY0nUMjx4CCdh3Zp2DcYMU+7eDEv9tvVp1HLJyWmbidFhwHjg==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
       react: ^17.0.0 || ^18.0.0 || ^19.0.0
@@ -1541,7 +1541,7 @@ snapshots:
       react: 19.2.8
       refractor: 3.6.0
 
-  react-toast-kit@file:../react-toast-kit(react-dom@19.2.8(react@19.2.8))(react@19.2.8):
+  react-toast-kit@1.0.9(react-dom@19.2.8(react@19.2.8))(react@19.2.8):
     dependencies:
       react: 19.2.8
       react-dom: 19.2.8(react@19.2.8)
