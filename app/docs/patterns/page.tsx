@@ -19,22 +19,22 @@ export default function PatternsPage() {
   // Simple form submit handler with toast notification
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validate form
     if (!formData.name || !formData.email) {
       toast.error({
         title: 'Validation Error',
-        description: 'Please fill in all fields'
+        description: 'Please fill in all fields',
       });
       return;
     }
-    
+
     // Show loading toast
     const loadingId = toast.loading({
       title: 'Submitting',
-      description: 'Processing your information...'
+      description: 'Processing your information...',
     });
-    
+
     // Simulate API call
     setTimeout(() => {
       // Success case
@@ -42,14 +42,14 @@ export default function PatternsPage() {
         variant: 'success',
         title: 'Success',
         description: 'Your information has been submitted',
-        duration: 3000
+        duration: 3000,
       });
-      
+
       // Reset form
       setFormData({ name: '', email: '' });
     }, 2000);
   };
-  
+
   // Async/await with toast.promise
   const handleAsyncAction = async () => {
     // Create a promise that resolves after a delay
@@ -65,95 +65,95 @@ export default function PatternsPage() {
         }, 2000);
       });
     };
-    
+
     // Use toast.promise to handle the promise lifecycle
     try {
       const result = await toast.promise(asyncOperation(), {
         loading: {
           title: 'Processing',
-          description: 'Your request is being processed...'
+          description: 'Your request is being processed...',
         },
         success: (data: OperationResult) => ({
           title: 'Success',
-          description: data.message
+          description: data.message,
         }),
         error: (err: unknown) => ({
           title: 'Error',
-          description: err instanceof Error ? err.message : 'Something went wrong'
-        })
+          description: err instanceof Error ? err.message : 'Something went wrong',
+        }),
       });
-      
+
       console.log('Operation result:', result);
     } catch (error) {
       console.error('Error caught:', error);
     }
   };
-  
+
   // Multi-step process with toast updates
   const startMultiStepProcess = () => {
     const totalSteps = 4;
-    
+
     // Create initial toast
     const id = toast.loading({
       title: 'Starting Process',
-      description: 'Step 1 of 4: Initializing...'
+      description: 'Step 1 of 4: Initializing...',
     });
-    
+
     // Step 2 after delay
     setTimeout(() => {
       toast.update(id, {
         title: 'Processing',
-        description: 'Step 2 of 4: Processing data...'
+        description: 'Step 2 of 4: Processing data...',
       });
     }, 2000);
-    
+
     // Step 3 after another delay
     setTimeout(() => {
       toast.update(id, {
         title: 'Almost Done',
-        description: 'Step 3 of 4: Finalizing...'
+        description: 'Step 3 of 4: Finalizing...',
       });
     }, 4000);
-    
+
     // Final step
     setTimeout(() => {
       toast.update(id, {
         variant: 'success',
         title: 'Complete',
         description: 'Step 4 of 4: Process completed successfully!',
-        duration: 3000
+        duration: 3000,
       });
     }, 6000);
   };
-  
+
   // Sequential toasts pattern
   const showSequentialToasts = () => {
     // First toast
     toast.info({
       title: 'Sequential Toast 1',
       description: 'This is the first toast',
-      duration: 3000
+      duration: 3000,
     });
-    
+
     // Second toast after delay
     setTimeout(() => {
       toast.info({
         title: 'Sequential Toast 2',
         description: 'This is the second toast',
-        duration: 3000
+        duration: 3000,
       });
     }, 1000);
-    
+
     // Third toast after another delay
     setTimeout(() => {
       toast.success({
         title: 'Sequential Toast 3',
         description: 'All toasts have been displayed!',
-        duration: 3000
+        duration: 3000,
       });
     }, 2000);
   };
-  
+
   // Conditional toast variations pattern
   const conditionalToast = (type: 'success' | 'warning' | 'error') => {
     const config = {
@@ -162,27 +162,39 @@ export default function PatternsPage() {
         title: 'Success',
         description: 'Operation completed successfully',
         // Converting string icon to JSX element
-        icon: <span role="img" aria-label="success">✓</span>
+        icon: (
+          <span role="img" aria-label="success">
+            ✓
+          </span>
+        ),
       },
       warning: {
         variant: 'warning' as const,
         title: 'Warning',
         description: 'Proceed with caution',
         // Converting string icon to JSX element
-        icon: <span role="img" aria-label="warning">⚠️</span>
+        icon: (
+          <span role="img" aria-label="warning">
+            ⚠️
+          </span>
+        ),
       },
       error: {
         variant: 'error' as const,
         title: 'Error',
         description: 'Something went wrong',
         // Converting string icon to JSX element
-        icon: <span role="img" aria-label="error">✗</span>
-      }
+        icon: (
+          <span role="img" aria-label="error">
+            ✗
+          </span>
+        ),
+      },
     };
-    
+
     toast(config[type]);
   };
-  
+
   // System notification pattern (e.g. for new messages, updates)
   const simulateSystemNotification = () => {
     toast.custom(
@@ -195,7 +207,7 @@ export default function PatternsPage() {
           </div>
         </div>
         <div className="mt-3 flex space-x-2">
-          <button 
+          <button
             className="px-3 py-1 bg-white text-indigo-600 rounded hover:bg-indigo-50 text-sm"
             onClick={() => {
               toast.dismiss();
@@ -204,7 +216,7 @@ export default function PatternsPage() {
           >
             Read now
           </button>
-          <button 
+          <button
             className="px-3 py-1 bg-transparent border border-white text-white rounded hover:bg-indigo-500 text-sm"
             onClick={() => toast.dismiss()}
           >
@@ -214,7 +226,7 @@ export default function PatternsPage() {
       </div>,
       {
         duration: 0, // stay until dismissed
-        position: 'bottom-right'
+        position: 'bottom-right',
       }
     );
   };
@@ -372,9 +384,16 @@ const notifyUser = (userId, message) => {
     <div className="max-w-3xl">
       {/* Breadcrumb */}
       <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-6">
-        <Link href="/" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Home</Link>
+        <Link href="/" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+          Home
+        </Link>
         <span>/</span>
-        <Link href="/docs" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Docs</Link>
+        <Link
+          href="/docs"
+          className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+        >
+          Docs
+        </Link>
         <span>/</span>
         <span>Patterns</span>
       </div>
@@ -385,262 +404,295 @@ const notifyUser = (userId, message) => {
           Common patterns and best practices for using toast notifications effectively.
         </p>
       </div>
-        
-        {/* Form submission pattern */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg mb-8 p-6">
-          <h2 className="text-xl font-bold mb-4">Form Submission Pattern</h2>
-          <p className="mb-6 text-gray-600 dark:text-gray-300">
-            Using toast notifications to provide feedback during form submissions is one of the most common patterns.
-          </p>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div>
-              <h3 className="text-lg font-semibold mb-3">Live Example</h3>
-              <form onSubmit={handleFormSubmit} className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium mb-1">Name</label>
-                  <input
-                    type="text"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-gray-50 dark:bg-gray-700"
-                    placeholder="Enter your name"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-1">Email</label>
-                  <input
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-gray-50 dark:bg-gray-700"
-                    placeholder="Enter your email"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="w-full p-2 bg-blue-600 hover:bg-blue-700 text-white rounded transition"
-                >
-                  Submit Form
-                </button>
-              </form>
-              
-              <div className="mt-4 text-sm text-gray-500 dark:text-gray-400">
-                <p>Try submitting the form with empty fields to see validation toast.</p>
-              </div>
-            </div>
-            
-            <div>
-              <h3 className="text-lg font-semibold mb-3">Implementation</h3>
-              <pre className="p-4 bg-gray-100 dark:bg-gray-900 rounded-lg overflow-x-auto h-64">
-                <code className="text-xs">{formToastCode}</code>
-              </pre>
-            </div>
-          </div>
-        </div>
-        
-        {/* Promise pattern */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg mb-8 p-6">
-          <h2 className="text-xl font-bold mb-4">Promise-based Pattern</h2>
-          <p className="mb-6 text-gray-600 dark:text-gray-300">
-            Using <code className="text-sm bg-gray-100 dark:bg-gray-900 px-1 py-0.5 rounded">toast.promise()</code> to handle async operations elegantly.
-          </p>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div>
-              <h3 className="text-lg font-semibold mb-3">Live Example</h3>
-              <div className="mb-4">
-                <button
-                  onClick={handleAsyncAction}
-                  className="w-full p-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded transition"
-                >
-                  Start Async Operation
-                </button>
-              </div>
-              
-              <div className="p-4 bg-gray-100 dark:bg-gray-900 rounded-lg">
-                <h4 className="font-medium mb-2">How it works:</h4>
-                <ol className="list-decimal list-inside space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                  <li>Click the button to start an async operation</li>
-                  <li>A loading toast appears immediately</li>
-                  <li>When the promise resolves or rejects (randomly in this demo), the toast updates accordingly</li>
-                  <li>The promise result is still available to use in your code</li>
-                </ol>
-              </div>
-            </div>
-            
-            <div>
-              <h3 className="text-lg font-semibold mb-3">Implementation</h3>
-              <pre className="p-4 bg-gray-100 dark:bg-gray-900 rounded-lg overflow-x-auto h-64">
-                <code className="text-xs">{promiseToastCode}</code>
-              </pre>
-            </div>
-          </div>
-        </div>
-        
-        {/* Multi-step process pattern */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg mb-8 p-6">
-          <h2 className="text-xl font-bold mb-4">Multi-step Process Pattern</h2>
-          <p className="mb-6 text-gray-600 dark:text-gray-300">
-            Using toast updates to show progress through a multi-step operation.
-          </p>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div>
-              <h3 className="text-lg font-semibold mb-3">Live Example</h3>
-              <div className="mb-4">
-                <button
-                  onClick={startMultiStepProcess}
-                  className="w-full p-3 bg-green-600 hover:bg-green-700 text-white rounded transition"
-                >
-                  Start Multi-step Process
-                </button>
-              </div>
-              
-              <div className="mt-4 p-4 bg-green-50 dark:bg-green-900/30 rounded-lg border border-green-200 dark:border-green-800">
-                <h4 className="font-medium text-green-800 dark:text-green-300 mb-1">Tip:</h4>
-                <p className="text-green-700 dark:text-green-400 text-sm">
-                  This pattern is great for complex operations like file uploads, multi-stage form submissions, or wizard-like processes where you want to keep the user informed without blocking the UI.
-                </p>
-              </div>
-            </div>
-            
-            <div>
-              <h3 className="text-lg font-semibold mb-3">Implementation</h3>
-              <pre className="p-4 bg-gray-100 dark:bg-gray-900 rounded-lg overflow-x-auto h-64">
-                <code className="text-xs">{multiStepToastCode}</code>
-              </pre>
-            </div>
-          </div>
-        </div>
-        
-        {/* Additional patterns */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg mb-8 p-6">
-          <h2 className="text-xl font-bold mb-4">More Usage Patterns</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <h3 className="text-lg font-semibold mb-3">Sequential Toasts</h3>
-              <p className="mb-3 text-gray-600 dark:text-gray-300">
-                Show multiple toasts in sequence to guide users through a process.
-              </p>
-              <button
-                onClick={showSequentialToasts}
-                className="w-full p-2 bg-purple-600 hover:bg-purple-700 text-white rounded transition"
-              >
-                Show Sequential Toasts
-              </button>
-            </div>
-            
-            <div>
-              <h3 className="text-lg font-semibold mb-3">Conditional Toast Variations</h3>
-              <p className="mb-3 text-gray-600 dark:text-gray-300">
-                Use different toast types based on conditions.
-              </p>
-              <div className="flex flex-wrap gap-2">
-                <button
-                  onClick={() => conditionalToast('success')}
-                  className="flex-1 p-2 bg-green-600 hover:bg-green-700 text-white rounded transition"
-                >
-                  Success
-                </button>
-                <button
-                  onClick={() => conditionalToast('warning')}
-                  className="flex-1 p-2 bg-yellow-600 hover:bg-yellow-700 text-white rounded transition"
-                >
-                  Warning
-                </button>
-                <button
-                  onClick={() => conditionalToast('error')}
-                  className="flex-1 p-2 bg-red-600 hover:bg-red-700 text-white rounded transition"
-                >
-                  Error
-                </button>
-              </div>
-            </div>
-          </div>
-          
-          <div className="mt-8">
-            <h3 className="text-lg font-semibold mb-3">Interactive Component Pattern</h3>
-            <p className="mb-3 text-gray-600 dark:text-gray-300">
-              Create rich, interactive notifications with custom components.
-            </p>
-            
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+      {/* Form submission pattern */}
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg mb-8 p-6">
+        <h2 className="text-xl font-bold mb-4">Form Submission Pattern</h2>
+        <p className="mb-6 text-gray-600 dark:text-gray-300">
+          Using toast notifications to provide feedback during form submissions is one of the most
+          common patterns.
+        </p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div>
+            <h3 className="text-lg font-semibold mb-3">Live Example</h3>
+            <form onSubmit={handleFormSubmit} className="space-y-4">
               <div>
-                <button
-                  onClick={simulateSystemNotification}
-                  className="w-full p-3 bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white rounded transition"
-                >
-                  Show Interactive Notification
-                </button>
+                <label className="block text-sm font-medium mb-1">Name</label>
+                <input
+                  type="text"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-gray-50 dark:bg-gray-700"
+                  placeholder="Enter your name"
+                />
               </div>
-              
-              <pre className="p-4 bg-gray-100 dark:bg-gray-900 rounded-lg overflow-x-auto">
-                <code className="text-xs">{customComponentCode}</code>
-              </pre>
+              <div>
+                <label className="block text-sm font-medium mb-1">Email</label>
+                <input
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-gray-50 dark:bg-gray-700"
+                  placeholder="Enter your email"
+                />
+              </div>
+              <button
+                type="submit"
+                className="w-full p-2 bg-blue-600 hover:bg-blue-700 text-white rounded transition"
+              >
+                Submit Form
+              </button>
+            </form>
+
+            <div className="mt-4 text-sm text-gray-500 dark:text-gray-400">
+              <p>Try submitting the form with empty fields to see validation toast.</p>
             </div>
           </div>
-        </div>
-        
-        {/* Best practices */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg mb-8 p-6">
-          <h2 className="text-xl font-bold mb-4">Toast Notification Best Practices</h2>
-          
-          <div className="space-y-6">
-            <div>
-              <h3 className="text-lg font-semibold mb-2">Keep It Brief</h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Toast notifications should be concise and focused on a single piece of information. Use clear, actionable language.
-              </p>
-            </div>
-            
-            <div>
-              <h3 className="text-lg font-semibold mb-2">Use Appropriate Variants</h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Match the toast variant to the message type: success for confirmations, error for problems, warning for cautions, and info for general updates.
-              </p>
-            </div>
-            
-            <div>
-              <h3 className="text-lg font-semibold mb-2">Consider Duration</h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Adjust duration based on importance and content length. Critical errors might need longer display times, while simple confirmations can be brief.
-              </p>
-            </div>
-            
-            <div>
-              <h3 className="text-lg font-semibold mb-2">Avoid Toast Overload</h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Don't spam users with too many notifications. Group related messages when possible and prioritize important information.
-              </p>
-            </div>
-            
-            <div>
-              <h3 className="text-lg font-semibold mb-2">Accessible Notifications</h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Ensure your toasts are accessible to all users, including those using screen readers. React Toast Kit handles this automatically with proper ARIA attributes.
-              </p>
-            </div>
+
+          <div>
+            <h3 className="text-lg font-semibold mb-3">Implementation</h3>
+            <pre className="p-4 bg-gray-100 dark:bg-gray-900 rounded-lg overflow-x-auto h-64">
+              <code className="text-xs">{formToastCode}</code>
+            </pre>
           </div>
-        </div>
-        
-        {/* Next steps */}
-        {/* Navigation */}
-        <div className="flex justify-between pt-6 border-t border-gray-200 dark:border-gray-800 mt-8">
-          <Link href="/docs/accessibility" className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-            </svg>
-            Accessibility
-          </Link>
-          <Link href="/docs" className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-            Back to docs
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-            </svg>
-          </Link>
         </div>
       </div>
+
+      {/* Promise pattern */}
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg mb-8 p-6">
+        <h2 className="text-xl font-bold mb-4">Promise-based Pattern</h2>
+        <p className="mb-6 text-gray-600 dark:text-gray-300">
+          Using{' '}
+          <code className="text-sm bg-gray-100 dark:bg-gray-900 px-1 py-0.5 rounded">
+            toast.promise()
+          </code>{' '}
+          to handle async operations elegantly.
+        </p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div>
+            <h3 className="text-lg font-semibold mb-3">Live Example</h3>
+            <div className="mb-4">
+              <button
+                onClick={handleAsyncAction}
+                className="w-full p-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded transition"
+              >
+                Start Async Operation
+              </button>
+            </div>
+
+            <div className="p-4 bg-gray-100 dark:bg-gray-900 rounded-lg">
+              <h4 className="font-medium mb-2">How it works:</h4>
+              <ol className="list-decimal list-inside space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                <li>Click the button to start an async operation</li>
+                <li>A loading toast appears immediately</li>
+                <li>
+                  When the promise resolves or rejects (randomly in this demo), the toast updates
+                  accordingly
+                </li>
+                <li>The promise result is still available to use in your code</li>
+              </ol>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-semibold mb-3">Implementation</h3>
+            <pre className="p-4 bg-gray-100 dark:bg-gray-900 rounded-lg overflow-x-auto h-64">
+              <code className="text-xs">{promiseToastCode}</code>
+            </pre>
+          </div>
+        </div>
+      </div>
+
+      {/* Multi-step process pattern */}
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg mb-8 p-6">
+        <h2 className="text-xl font-bold mb-4">Multi-step Process Pattern</h2>
+        <p className="mb-6 text-gray-600 dark:text-gray-300">
+          Using toast updates to show progress through a multi-step operation.
+        </p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div>
+            <h3 className="text-lg font-semibold mb-3">Live Example</h3>
+            <div className="mb-4">
+              <button
+                onClick={startMultiStepProcess}
+                className="w-full p-3 bg-green-600 hover:bg-green-700 text-white rounded transition"
+              >
+                Start Multi-step Process
+              </button>
+            </div>
+
+            <div className="mt-4 p-4 bg-green-50 dark:bg-green-900/30 rounded-lg border border-green-200 dark:border-green-800">
+              <h4 className="font-medium text-green-800 dark:text-green-300 mb-1">Tip:</h4>
+              <p className="text-green-700 dark:text-green-400 text-sm">
+                This pattern is great for complex operations like file uploads, multi-stage form
+                submissions, or wizard-like processes where you want to keep the user informed
+                without blocking the UI.
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-semibold mb-3">Implementation</h3>
+            <pre className="p-4 bg-gray-100 dark:bg-gray-900 rounded-lg overflow-x-auto h-64">
+              <code className="text-xs">{multiStepToastCode}</code>
+            </pre>
+          </div>
+        </div>
+      </div>
+
+      {/* Additional patterns */}
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg mb-8 p-6">
+        <h2 className="text-xl font-bold mb-4">More Usage Patterns</h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h3 className="text-lg font-semibold mb-3">Sequential Toasts</h3>
+            <p className="mb-3 text-gray-600 dark:text-gray-300">
+              Show multiple toasts in sequence to guide users through a process.
+            </p>
+            <button
+              onClick={showSequentialToasts}
+              className="w-full p-2 bg-purple-600 hover:bg-purple-700 text-white rounded transition"
+            >
+              Show Sequential Toasts
+            </button>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-semibold mb-3">Conditional Toast Variations</h3>
+            <p className="mb-3 text-gray-600 dark:text-gray-300">
+              Use different toast types based on conditions.
+            </p>
+            <div className="flex flex-wrap gap-2">
+              <button
+                onClick={() => conditionalToast('success')}
+                className="flex-1 p-2 bg-green-600 hover:bg-green-700 text-white rounded transition"
+              >
+                Success
+              </button>
+              <button
+                onClick={() => conditionalToast('warning')}
+                className="flex-1 p-2 bg-yellow-600 hover:bg-yellow-700 text-white rounded transition"
+              >
+                Warning
+              </button>
+              <button
+                onClick={() => conditionalToast('error')}
+                className="flex-1 p-2 bg-red-600 hover:bg-red-700 text-white rounded transition"
+              >
+                Error
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-8">
+          <h3 className="text-lg font-semibold mb-3">Interactive Component Pattern</h3>
+          <p className="mb-3 text-gray-600 dark:text-gray-300">
+            Create rich, interactive notifications with custom components.
+          </p>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div>
+              <button
+                onClick={simulateSystemNotification}
+                className="w-full p-3 bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white rounded transition"
+              >
+                Show Interactive Notification
+              </button>
+            </div>
+
+            <pre className="p-4 bg-gray-100 dark:bg-gray-900 rounded-lg overflow-x-auto">
+              <code className="text-xs">{customComponentCode}</code>
+            </pre>
+          </div>
+        </div>
+      </div>
+
+      {/* Best practices */}
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg mb-8 p-6">
+        <h2 className="text-xl font-bold mb-4">Toast Notification Best Practices</h2>
+
+        <div className="space-y-6">
+          <div>
+            <h3 className="text-lg font-semibold mb-2">Keep It Brief</h3>
+            <p className="text-gray-600 dark:text-gray-300">
+              Toast notifications should be concise and focused on a single piece of information.
+              Use clear, actionable language.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-semibold mb-2">Use Appropriate Variants</h3>
+            <p className="text-gray-600 dark:text-gray-300">
+              Match the toast variant to the message type: success for confirmations, error for
+              problems, warning for cautions, and info for general updates.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-semibold mb-2">Consider Duration</h3>
+            <p className="text-gray-600 dark:text-gray-300">
+              Adjust duration based on importance and content length. Critical errors might need
+              longer display times, while simple confirmations can be brief.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-semibold mb-2">Avoid Toast Overload</h3>
+            <p className="text-gray-600 dark:text-gray-300">
+              Don't spam users with too many notifications. Group related messages when possible and
+              prioritize important information.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-semibold mb-2">Accessible Notifications</h3>
+            <p className="text-gray-600 dark:text-gray-300">
+              Ensure your toasts are accessible to all users, including those using screen readers.
+              React Toast Kit handles this automatically with proper ARIA attributes.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Next steps */}
+      {/* Navigation */}
+      <div className="flex justify-between pt-6 border-t border-gray-200 dark:border-gray-800 mt-8">
+        <Link
+          href="/docs/accessibility"
+          className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+        >
+          <svg
+            className="w-4 h-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+          Accessibility
+        </Link>
+        <Link
+          href="/docs"
+          className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+        >
+          Back to docs
+          <svg
+            className="w-4 h-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </Link>
+      </div>
+    </div>
   );
 }

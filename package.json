@@ -1,33 +1,46 @@
 {
   "name": "react-toast-kit-docs",
   "version": "1.0.0",
-  "description": "Documentation and demo site for react-toast-kit",
+  "description": "Official React Toast Kit documentation, API reference and interactive toast playground",
+  "homepage": "https://danhnhdeveloper308.github.io/react-toast-kit-docs/",
+  "keywords": [
+    "react toast documentation",
+    "react notifications",
+    "nextjs toast",
+    "vite toast",
+    "remix toast",
+    "typescript toast",
+    "accessible notifications"
+  ],
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
-    "lint": "next lint",
-    "export": "next export"
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write \"app/**/*.{ts,tsx,css}\" \"components/**/*.{ts,tsx}\" \"lib/**/*.ts\" \"tests/**/*.ts\" \"*.{js,ts,json,md}\" \".github/workflows/*.yml\"",
+    "format:check": "prettier --check \"app/**/*.{ts,tsx,css}\" \"components/**/*.{ts,tsx}\" \"lib/**/*.ts\" \"tests/**/*.ts\" \"*.{js,ts,json,md}\" \".github/workflows/*.yml\"",
+    "check": "pnpm typecheck && pnpm build",
+    "test:e2e": "playwright test",
+    "test:e2e:update": "playwright test --update-snapshots"
   },
   "dependencies": {
-    "framer-motion": "^12.11.3",
     "next": "^16.2.6",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "react-syntax-highlighter": "^15.6.1",
-    "react-toast-kit": "^1.0.8",
-    "zustand": "^5.0.4"
+    "react-toast-kit": "file:../react-toast-kit"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.10.2",
+    "@playwright/test": "^1.51.1",
     "@types/node": "^20.11.5",
-    "@types/react": "^18.2.48",
-    "@types/react-dom": "^18.2.18",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
     "@types/react-syntax-highlighter": "^15.5.13",
     "autoprefixer": "^10.4.16",
-    "eslint": "^8.56.0",
-    "eslint-config-next": "^14.1.0",
     "postcss": "^8.4.32",
+    "prettier": "^3.6.2",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.3.3"
   },

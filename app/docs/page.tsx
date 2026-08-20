@@ -74,12 +74,39 @@ const { theme, setTheme } = useToastConfig();
 const { total, byVariant, byPosition } = useToastStats();`;
 
 const guides = [
-  { title: 'Features', description: 'All toast types, animations, updates, and advanced patterns with live examples.', href: '/docs/features', icon: '🚀', badge: 'Interactive' },
-  { title: 'Theming', description: 'Light, dark, system themes. CSS custom properties, className, and inline styles.', href: '/docs/theming', icon: '🎨' },
-  { title: 'Next.js', description: 'App Router & Pages Router setup. SSR safety and best practices for production.', href: '/docs/nextjs', icon: '⚡', badge: 'Popular' },
-  { title: 'Accessibility', description: 'ARIA roles, keyboard navigation, screen reader support, and reduced motion.', href: '/docs/accessibility', icon: '♿' },
-  { title: 'Patterns', description: 'Form validation, optimistic updates, undo actions, and real-world usage patterns.', href: '/docs/patterns', icon: '📐' },
-  { title: 'DevTools', description: 'Built-in developer panel for monitoring, testing, and debugging toasts live. Keyboard shortcut: Alt+Shift+D.', href: '/docs/devtools', icon: '🔧', badge: 'Dev Only' },
+  {
+    title: 'Features',
+    description: 'All toast types, animations, updates, and advanced patterns with live examples.',
+    href: '/docs/features',
+    icon: '🚀',
+    badge: 'Interactive',
+  },
+  {
+    title: 'Theming',
+    description: 'Light, dark, system themes. CSS custom properties, className, and inline styles.',
+    href: '/docs/theming',
+    icon: '🎨',
+  },
+  {
+    title: 'Next.js',
+    description: 'App Router & Pages Router setup. SSR safety and best practices for production.',
+    href: '/docs/nextjs',
+    icon: '⚡',
+    badge: 'Popular',
+  },
+  {
+    title: 'Accessibility',
+    description: 'ARIA roles, keyboard navigation, screen reader support, and reduced motion.',
+    href: '/docs/accessibility',
+    icon: '♿',
+  },
+  {
+    title: 'Patterns',
+    description:
+      'Form validation, optimistic updates, undo actions, and real-world usage patterns.',
+    href: '/docs/patterns',
+    icon: '📐',
+  },
 ];
 
 export default function DocsPage() {
@@ -88,7 +115,9 @@ export default function DocsPage() {
       {/* Page header */}
       <div className="mb-10">
         <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-4">
-          <Link href="/" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Home</Link>
+          <Link href="/" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+            Home
+          </Link>
           <span>/</span>
           <span>Documentation</span>
         </div>
@@ -101,15 +130,40 @@ export default function DocsPage() {
 
       {/* Quick test */}
       <div className="flex flex-wrap gap-2 mb-10 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-200 dark:border-gray-700">
-        <span className="text-sm text-gray-500 dark:text-gray-400 self-center mr-2">Try it now:</span>
-        <button onClick={() => toast.success('It works!')} className="px-3 py-1.5 bg-green-500 hover:bg-green-600 text-white text-sm rounded-lg transition">Success</button>
-        <button onClick={() => toast.error('Something failed.')} className="px-3 py-1.5 bg-red-500 hover:bg-red-600 text-white text-sm rounded-lg transition">Error</button>
-        <button onClick={() => toast.warning('Session expiring.')} className="px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white text-sm rounded-lg transition">Warning</button>
-        <button onClick={() => toast.info('Just an FYI.')} className="px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded-lg transition">Info</button>
+        <span className="text-sm text-gray-500 dark:text-gray-400 self-center mr-2">
+          Try it now:
+        </span>
+        <button
+          onClick={() => toast.success('It works!')}
+          className="px-3 py-1.5 bg-green-500 hover:bg-green-600 text-white text-sm rounded-lg transition"
+        >
+          Success
+        </button>
+        <button
+          onClick={() => toast.error('Something failed.')}
+          className="px-3 py-1.5 bg-red-500 hover:bg-red-600 text-white text-sm rounded-lg transition"
+        >
+          Error
+        </button>
+        <button
+          onClick={() => toast.warning('Session expiring.')}
+          className="px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white text-sm rounded-lg transition"
+        >
+          Warning
+        </button>
+        <button
+          onClick={() => toast.info('Just an FYI.')}
+          className="px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded-lg transition"
+        >
+          Info
+        </button>
         <button
           onClick={() => {
             const id = toast.loading('Loading...');
-            setTimeout(() => toast.update(id, { variant: 'success', title: 'Complete!', duration: 2500 }), 2000);
+            setTimeout(
+              () => toast.update(id, { variant: 'success', title: 'Complete!', duration: 2500 }),
+              2000
+            );
           }}
           className="px-3 py-1.5 bg-gray-500 hover:bg-gray-600 text-white text-sm rounded-lg transition"
         >
@@ -130,16 +184,21 @@ export default function DocsPage() {
       <section id="quick-start" className="mb-10">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Quick Start</h2>
         <p className="text-gray-600 dark:text-gray-300 mb-4">
-          Wrap your app once with <code className="code-inline">ToastProvider</code>, then call <code className="code-inline">toast()</code> from any component.
+          Wrap your app once with <code className="code-inline">ToastProvider</code>, then call{' '}
+          <code className="code-inline">toast()</code> from any component.
         </p>
 
         <div className="space-y-4">
           <div>
-            <p className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">1. Add the provider</p>
+            <p className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">
+              1. Add the provider
+            </p>
             <CodeBlock code={providerCode} language="tsx" filename="layout.tsx" />
           </div>
           <div>
-            <p className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">2. Call toast() anywhere</p>
+            <p className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">
+              2. Call toast() anywhere
+            </p>
             <CodeBlock code={usageCode} language="tsx" />
           </div>
         </div>
@@ -147,23 +206,31 @@ export default function DocsPage() {
 
       {/* API reference */}
       <section id="api-provider" className="mb-10">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">ToastProvider Props</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+          ToastProvider Props
+        </h2>
         <CodeBlock code={providerPropsCode} language="tsx" />
 
         <div className="mt-6 overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-800">
           <table className="w-full text-sm">
             <thead className="bg-gray-50 dark:bg-gray-800/50">
               <tr>
-                <th className="text-left px-4 py-3 font-semibold text-gray-700 dark:text-gray-300">Prop</th>
-                <th className="text-left px-4 py-3 font-semibold text-gray-700 dark:text-gray-300">Type</th>
-                <th className="text-left px-4 py-3 font-semibold text-gray-700 dark:text-gray-300">Default</th>
+                <th className="text-left px-4 py-3 font-semibold text-gray-700 dark:text-gray-300">
+                  Prop
+                </th>
+                <th className="text-left px-4 py-3 font-semibold text-gray-700 dark:text-gray-300">
+                  Type
+                </th>
+                <th className="text-left px-4 py-3 font-semibold text-gray-700 dark:text-gray-300">
+                  Default
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
               {[
                 ['theme', '"light" | "dark" | "system"', '"system"'],
                 ['position', 'ToastPosition', '"top-right"'],
-                ['maxToasts', 'number', '5'],
+                ['maxToasts', 'number', '3'],
                 ['defaultDuration', 'number (ms)', '4000'],
                 ['defaultAnimation', 'ToastAnimation', '"slide"'],
                 ['defaultDismissible', 'boolean', 'true'],
@@ -172,10 +239,19 @@ export default function DocsPage() {
                 ['bottomOffset', 'number', '16'],
                 ['enableAccessibleAnnouncements', 'boolean', 'true'],
               ].map(([prop, type, def]) => (
-                <tr key={prop} className="hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors">
-                  <td className="px-4 py-2.5 font-mono text-blue-600 dark:text-blue-400 text-xs">{prop}</td>
-                  <td className="px-4 py-2.5 text-gray-600 dark:text-gray-400 font-mono text-xs">{type}</td>
-                  <td className="px-4 py-2.5 text-gray-500 dark:text-gray-500 font-mono text-xs">{def}</td>
+                <tr
+                  key={prop}
+                  className="hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors"
+                >
+                  <td className="px-4 py-2.5 font-mono text-blue-600 dark:text-blue-400 text-xs">
+                    {prop}
+                  </td>
+                  <td className="px-4 py-2.5 text-gray-600 dark:text-gray-400 font-mono text-xs">
+                    {type}
+                  </td>
+                  <td className="px-4 py-2.5 text-gray-500 dark:text-gray-500 font-mono text-xs">
+                    {def}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -191,7 +267,9 @@ export default function DocsPage() {
 
       {/* Guides */}
       <section className="mb-10">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Explore the Guides</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+          Explore the Guides
+        </h2>
         <div className="grid sm:grid-cols-2 gap-4">
           {guides.map((g) => (
             <Link
@@ -210,7 +288,9 @@ export default function DocsPage() {
               <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                 {g.title}
               </h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">{g.description}</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">
+                {g.description}
+              </p>
             </Link>
           ))}
         </div>
@@ -227,7 +307,7 @@ export default function DocsPage() {
             },
             {
               q: 'Do I need to import a CSS file?',
-              a: "No. CSS is automatically injected into the document <head> when the library loads. You can optionally import 'react-toast-kit/styles.css' for SSR edge cases.",
+              a: "No. The default entry injects CSS automatically. For strict CSP, import from 'react-toast-kit/core' and add 'react-toast-kit/styles.css' to your global style entry.",
             },
             {
               q: 'Can I use custom components inside toasts?',
@@ -238,7 +318,10 @@ export default function DocsPage() {
               a: 'Yes. Toasts include ARIA roles (status / alert), aria-live regions, keyboard navigation, and respect prefers-reduced-motion.',
             },
           ].map(({ q, a }) => (
-            <div key={q} className="p-5 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800">
+            <div
+              key={q}
+              className="p-5 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800"
+            >
               <h3 className="font-medium text-gray-900 dark:text-white mb-1.5">{q}</h3>
               <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{a}</p>
             </div>
